@@ -331,8 +331,9 @@ export function createAmazonBedrockAnthropic(
 
       // Bedrock Anthropic doesn't support URL sources, force download and base64 conversion
       supportedUrls: () => ({}),
-      // native structured output via output_config.format is supported on Bedrock
-      supportsNativeStructuredOutput: true,
+      // native structured output via output_config.format is supported on Bedrock,
+      // but claude-opus-4-7 rejects output_config.format (see vercel/ai#14773)
+      supportsNativeStructuredOutput: !modelId.includes('claude-opus-4-7'),
     });
 
   const provider = function (modelId: AmazonBedrockAnthropicModelId) {

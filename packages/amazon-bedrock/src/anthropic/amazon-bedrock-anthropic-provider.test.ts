@@ -532,6 +532,38 @@ describe('amazon-bedrock-anthropic-provider', () => {
     );
   });
 
+  it('should disable native structured output for claude-opus-4-7', () => {
+    const provider = createBedrockAnthropic({
+      region: 'us-east-1',
+      accessKeyId: 'test-key',
+      secretAccessKey: 'test-secret',
+    });
+    provider('anthropic.claude-opus-4-7');
+
+    expect(AnthropicLanguageModel).toHaveBeenCalledWith(
+      'anthropic.claude-opus-4-7',
+      expect.objectContaining({
+        supportsNativeStructuredOutput: false,
+      }),
+    );
+  });
+
+  it('should disable native structured output for eu.anthropic.claude-opus-4-7', () => {
+    const provider = createBedrockAnthropic({
+      region: 'eu-west-1',
+      accessKeyId: 'test-key',
+      secretAccessKey: 'test-secret',
+    });
+    provider('eu.anthropic.claude-opus-4-7');
+
+    expect(AnthropicLanguageModel).toHaveBeenCalledWith(
+      'eu.anthropic.claude-opus-4-7',
+      expect.objectContaining({
+        supportsNativeStructuredOutput: false,
+      }),
+    );
+  });
+
   it('should handle models with us. prefix for inference profiles', () => {
     const provider = createAmazonBedrockAnthropic({
       region: 'us-east-1',
