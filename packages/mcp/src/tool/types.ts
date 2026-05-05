@@ -238,7 +238,7 @@ const ResourceLinkContentSchema = z
   .object({
     type: z.literal('resource_link'),
     uri: z.string(),
-    name: z.optional(z.string()),
+    name: z.string(),
     description: z.optional(z.string()),
     mimeType: z.optional(z.string()),
   })
